@@ -1,0 +1,35 @@
+{% extends 'store/base.html' %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="account-card">
+        <h2>My Account</h2>
+        <p>Welcome back, <strong>{{ user.username }}</strong>!</p>
+    
+        <h3>My Profile</h3>
+        <ul class="profile-info">
+            <li>
+                <strong>Username:</strong>
+                <span>{{ user.username }}</span>
+            </li>
+            <li>
+                <strong>Email:</strong>
+                <span>{{ user.email|default:"Not provided" }}</span>
+            </li>
+            <li>
+                <strong>Joined:</strong>
+                <span>{{ user.date_joined|date:"F j, Y" }}</span>
+            </li>
+        </ul>
+    
+        <h3>My Links</h3>
+        <p>You can manage your items and orders here or from the navigation bar.</p>
+        <ul class="account-links">
+            <li><a href="#">View My Listings</a></li>
+            <li><a href="#">View My Orders</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

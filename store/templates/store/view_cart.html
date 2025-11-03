@@ -1,0 +1,51 @@
+{% extends 'store/base.html' %}
+
+{% block title %}My Cart{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="account-card"> <h2>My Shopping Cart</h2>
+
+        {% if not products_in_cart %}
+            <p>Your cart is empty.</p>
+            <a href="{% url 'home' %}" class="btn-link">Continue Shopping</a>
+        {% else %}
+        <div class="table-wrapper">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in products_in_cart %}
+                    <tr>
+                        <td>
+                            <div class="cart-product-info">
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}">
+                                <div>
+                                    <strong>{{ item.product.title }}</strong>
+                                    <small>Sold by {{ item.product.seller.username }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${{ item.product.price }}</td>
+                        <td>
+                           <a href="{% url 'remove_from_cart' item.product.id %}" class="btn-link-danger">Remove</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+            <div class="cart-summary">
+                <h3>Total: ${{ total_price|floatformat:2 }}</h3>
+               <a href="{% url 'checkout' %}" class="btn-link">Proceed to Checkout</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

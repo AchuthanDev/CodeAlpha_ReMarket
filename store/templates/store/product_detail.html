@@ -1,0 +1,45 @@
+{% extends 'store/base.html' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="product-detail-layout">
+        <div class="product-detail-image">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.title }}">
+            {% else %}
+                <img src="https://via.placeholder.com/600x400.png?text=No+Image" alt="No image available">
+            {% endif %}
+        </div>
+
+        <div class="product-detail-info">
+            <h2>{{ product.title }}</h2>
+            <p class="detail-price">${{ product.price }}</p>
+
+            <h3>Description</h3>
+            <p>{{ product.description }}</p>
+
+            <h3>Details</h3>
+            <ul class="detail-list">
+                <li>
+                    <strong>Seller:</strong>
+                    <span>{{ product.seller.username }}</span>
+                </li>
+                <li>
+                    <strong>Condition:</strong>
+                    <span>{{ product.get_condition_display }}</span>
+                </li>
+                {% if product.category %}
+                <li>
+                    <strong>Category:</strong>
+                    <span>{{ product.category.name }}</span>
+                </li>
+                {% endif %}
+            </ul>
+
+            <a href="{% url 'add_to_cart' product.id %}" class="btn-link" style="margin-top: 1rem;">Add to Cart</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

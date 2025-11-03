@@ -1,0 +1,14 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Order Successful{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="account-card" style="text-align: center;">
+        <h2>Thank You For Your Order!</h2>
+        <p>Your purchase has been confirmed.</p>
+        <p>You can view your new items in your "My Orders" page.</p>
+        <a href="{% url 'my_orders' %}" class="btn-link" style="margin-top: 1rem;">View My Orders</a>
+    </div>
+</div>
+{% endblock %}

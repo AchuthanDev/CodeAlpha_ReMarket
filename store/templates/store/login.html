@@ -1,0 +1,42 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Login to Your Account</h2>
+
+    <button type="button" class="google-btn" onclick="signInWithGoogle()">
+        <i class="fab fa-google"></i> Login with Google
+    </button>
+    
+    <div class="divider">or</div>
+
+    <form id="login-form" class="modern-form" onsubmit="return false;">
+        <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="text" id="login-email" required>
+        </div>
+        <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required>
+        </div>
+        <button type="submit" class="submit-btn">Login</button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 1rem;">
+        Need an account? <a href="{% url 'register' %}">Register here</a>
+    </p>
+</div>
+
+<script>
+    // Add event listener for the form
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        signInWithEmail(email, password); // Call function from auth.js
+    });
+</script>
+
+{% endblock %}

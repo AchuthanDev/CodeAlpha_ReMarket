@@ -1,0 +1,33 @@
+{% extends 'store/base.html' %}
+
+{% block title %}My Orders{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <h2>My Orders</h2>
+
+    {% if not orders %}
+        <p>You have not purchased any items yet.</p>
+        <a href="{% url 'home' %}" class="btn-link">Start Shopping</a>
+
+    {% else %}
+        <div class="product-grid">
+            {% for order in orders %}
+                <div class="product-card">
+                    {% if order.product.image %}
+                        <img src="{{ order.product.image.url }}" alt="{{ order.product.title }}">
+                    {% endif %}
+
+                    <div class="product-card-body">
+                        <h3 class="product-title">{{ order.product.title }}</h3>
+                        <p class="product-price">Paid: ${{ order.product.price }}</p>
+                        <p style="color: #6c757d; font-size: 0.9rem;">
+                            Purchased on {{ order.ordered_at|date:"F j, Y" }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

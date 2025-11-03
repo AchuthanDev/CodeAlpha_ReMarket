@@ -1,0 +1,56 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="page-container">
+   <div class="category-list">
+    <h3></h3>
+    <ul>
+        <li class="{% if not current_category %}category-active{% endif %}">
+            <a href="{% url 'home' %}">All Products</a>
+        </li>
+        {% for category in categories %}
+            <li class="{% if current_category.id == category.id %}category-active{% endif %}">
+                <a href="{% url 'home' %}?category={{ category.id }}">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<hr style="margin: 2rem 0;">
+
+<h2>
+    {% if current_category %}
+        Viewing {{ current_category.name }}
+    {% else %}
+        All Items for Sale
+    {% endif %}
+    {% if search_query %}
+        (Results for "{{ search_query }}")
+    {% endif %}
+</h2>
+
+    {% if not products %}
+        <p>There are no items for sale at the moment. Please check back later!</p>
+
+    {% else %}
+        <div class="product-grid">
+            {% for product in products %}
+                <a href="{% url 'product_detail' product.id %}" class="product-card-link">
+                    <div class="product-card">
+                        
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                        {% endif %}
+
+                        <div class="product-card-body">
+                            <h3 class="product-title">{{ product.title }}</h3>
+                            <p class="product-price">${{ product.price }}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

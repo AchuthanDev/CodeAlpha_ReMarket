@@ -1,0 +1,30 @@
+{% extends 'store/base.html' %}
+
+{% block title %}{{ category.name }} Products{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <h2>{{ category.name }}</h2>
+
+    {% if not products %}
+        <p>There are no items for sale in this category yet.</p>
+    {% else %}
+        <div class="product-grid">
+            {% for product in products %}
+                <a href="{% url 'product_detail' product.id %}" class="product-card-link">
+                    <div class="product-card">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                        {% endif %}
+
+                        <div class="product-card-body">
+                            <h3 class="product-title">{{ product.title }}</h3>
+                            <p class="product-price">${{ product.price }}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

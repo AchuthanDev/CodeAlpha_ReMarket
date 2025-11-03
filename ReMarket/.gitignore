@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+
+# Secrets
+*.sqlite3
+serviceAccountKey.json
+
+# Django
+.env
+static/
+media/
